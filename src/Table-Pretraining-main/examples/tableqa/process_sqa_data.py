@@ -26,7 +26,7 @@ def download_sqa():
     """
     Download SQA dataset and unzip the files
     """
-    sqa_url = "https://www.cs.stanford.edu/~pliang/software/sqa-release-1.0.zip"
+    sqa_url = "https://huggingface.co/datasets/JesseWiers/table_reasoning/resolve/main/SQA%20Release%201.0.zip"
     sqa_raw_path = os.path.join(RAW_DATASET_FOLDER, "sqa")
     
     # Remove existing directory if it exists
