@@ -87,3 +87,6 @@ coverage.xml
 # job outputs and jobs
 **/job_outputs/
 **/jobs/
+
+# tapex model code 
+**/tapex.base/
