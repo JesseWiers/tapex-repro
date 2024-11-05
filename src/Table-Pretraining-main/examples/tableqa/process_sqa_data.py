@@ -24,10 +24,15 @@ logger = logging.getLogger(__name__)
 
 def download_sqa():
     """
-    Download WikiSQL dataset and unzip the files
+    Download SQA dataset and unzip the files
     """
-    sqa_url = "https://download.microsoft.com/download/1/D/C/1DC270D2-1B53-4A61-A2E3-88AB3E4E6E1F/SQA%20Release%201.0.zip"
+    sqa_url = "https://www.cs.stanford.edu/~pliang/software/sqa-release-1.0.zip"
     sqa_raw_path = os.path.join(RAW_DATASET_FOLDER, "sqa")
+    
+    # Remove existing directory if it exists
+    if os.path.exists(sqa_raw_path):
+        shutil.rmtree(sqa_raw_path)
+    
     sqa_zip_file = download_file(sqa_url)
     # unzip and move it into raw_dataset folder
     with zipfile.ZipFile(sqa_zip_file) as zf:
