@@ -29,6 +29,11 @@ def download_wikitablequestions():
     wtq_url = "https://github.com/ppasupat/WikiTableQuestions/releases/" \
               "download/v1.0.2/WikiTableQuestions-1.0.2-compact.zip"
     wtq_raw_path = os.path.join(RAW_DATASET_FOLDER, "wtq")
+    
+    # Remove existing directory if it exists
+    if os.path.exists(wtq_raw_path):
+        shutil.rmtree(wtq_raw_path)
+    
     wtq_zip_file = download_file(wtq_url)
     # unzip and move it into raw_dataset folder
     with zipfile.ZipFile(wtq_zip_file) as zf:

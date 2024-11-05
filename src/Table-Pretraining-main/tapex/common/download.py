@@ -22,25 +22,36 @@ DEFAULT_ENCODER_JSON = "https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/encoder.
 DEFAULT_VOCAB_BPE = "https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/vocab.bpe"
 
 
-def download_file(url, download_dir=None):
+def download_file(url, output_dir=None, chunk_size=8192, retries=3):
     """
-    Download file into local file system from url
+    Download file with retry logic
     """
-    local_filename = url.split('/')[-1]
-    if download_dir is None:
-        download_dir = os.curdir
-    elif not os.path.exists(download_dir):
-        os.makedirs(download_dir)
-    with requests.get(url, stream=True) as r:
-        file_name = os.path.join(download_dir, local_filename)
-        if os.path.exists(file_name):
-            os.remove(file_name)
-        write_f = open(file_name, "wb")
-        for data in tqdm(r.iter_content()):
-            write_f.write(data)
-        write_f.close()
-
-    return os.path.abspath(file_name)
+    for attempt in range(retries):
+        try:
+            r = requests.get(url, stream=True, timeout=300)  # 5 minute timeout
+            r.raise_for_status()
+            
+            total_size = int(r.headers.get('content-length', 0))
+            filename = os.path.basename(url)
+            
+            if output_dir:
+                os.makedirs(output_dir, exist_ok=True)
+                filename = os.path.join(output_dir, filename)
+                
+            with open(filename, 'wb') as f:
+                with tqdm(total=total_size, unit='iB', unit_scale=True) as pbar:
+                    for chunk in r.iter_content(chunk_size=chunk_size):
+                        if chunk:
+                            f.write(chunk)
+                            pbar.update(len(chunk))
+            return filename
+            
+        except (requests.exceptions.ChunkedEncodingError, 
+                requests.exceptions.ConnectionError) as e:
+            if attempt == retries - 1:  # Last attempt
+                raise e
+            print(f"Download failed, retrying... ({attempt + 1}/{retries})")
+            time.sleep(1)  # Wait a bit before retrying
 
 
 def download_model_weights(resource_dir, resource_name):
