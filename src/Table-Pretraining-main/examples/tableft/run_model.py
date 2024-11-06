@@ -98,11 +98,12 @@ def train_fairseq_model(args):
         --skip-invalid-size-inputs-valid-test  \
         --log-format json  \
         --log-interval 10  \
-        --save-interval-updates	100 \
+        --save-interval-updates	{args.save_interval} \
         --validate-interval	50 \
         --save-interval	{args.save_interval} \
         --patience 200
     """
+    print("args.save_interval: ", args.save_interval)
     sys.argv = shlex.split(cmd)
     logger.info("Begin to train model for dataset {}".format(args.dataset_dir))
     logger.info("Running command {}".format(re.sub("\s+", " ", cmd.replace("\n", " "))))
