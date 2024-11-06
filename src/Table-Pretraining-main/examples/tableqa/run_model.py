@@ -35,6 +35,8 @@ def set_train_parser(parser_group):
                               help="the total optimization training steps")
     train_parser.add_argument("--learning-rate", type=float, default=3e-5,
                               help="the peak learning rate for model training")
+    train_parser.add_argument("--save-interval-updates", type=int, default=100,
+                              help="how often to save checkpoints (updates)")
 
 
 def set_eval_parser(parser_group):
