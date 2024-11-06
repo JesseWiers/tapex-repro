@@ -39,7 +39,7 @@ def set_train_parser(parser_group):
                               help="the total optimization training steps")
     train_parser.add_argument("--learning-rate", type=float, default=3e-5,
                               help="the peak learning rate for model training")
-    train_parser.add_argument("--save-interval-updates", type=int, default=2000,
+    train_parser.add_argument("--save-interval", type=int, default=2000,
                               help="how often to save checkpoints (updates)")
 
 
@@ -100,7 +100,7 @@ def train_fairseq_model(args):
         --log-interval 10  \
         --save-interval-updates	100 \
         --validate-interval	50 \
-        --save-interval	{args.save_interval_updates} \
+        --save-interval	{args.save_interval} \
         --patience 200
     """
     sys.argv = shlex.split(cmd)
