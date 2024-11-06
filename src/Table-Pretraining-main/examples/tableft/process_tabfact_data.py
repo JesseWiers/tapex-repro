@@ -26,17 +26,20 @@ def download_tabfact():
     """
     Download WikiTableQuestion dataset and unzip the files
     """
-    tabfact_url = "https://github.com/microsoft/Table-Pretraining/"\
-                  "releases/download/origin-data/tabfact.zip"
+    tabfact_url = "https://github.com/microsoft/Table-Pretraining/releases/download/origin-data/tabfact.zip"
+                  
+    # tabfact_url = "https://github.com/wenhuchen/Table-Fact-Checking/archive/948b5560e2f7f8c9139bd91c7f093346a2bb56a8.zip"
+    
     tabfact_raw_path = os.path.join(RAW_DATASET_FOLDER, "tabfact")
     tabfact_zip_file = download_file(tabfact_url)
+    
     # unzip and move it into raw_dataset folder
     with zipfile.ZipFile(tabfact_zip_file) as zf:
         zf.extractall(RAW_DATASET_FOLDER)
     unzip_tabfact_path = os.path.join(RAW_DATASET_FOLDER, "TabFact")
-    shutil.move(unzip_tabfact_path, tabfact_raw_path)
+    # shutil.move(unzip_tabfact_path, tabfact_raw_path)
     # remove the original file
-    os.remove(tabfact_zip_file)
+    # os.remove(tabfact_zip_file)
     return tabfact_raw_path
 
 
