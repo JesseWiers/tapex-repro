@@ -103,7 +103,7 @@ def train_fairseq_model(args):
         --skip-invalid-size-inputs-valid-test  \
         --log-format json  \
         --log-interval 10  \
-        --save-interval-updates	100 \
+        --save-interval-updates	2000 \
         --validate-interval	50 \
         --save-interval	50 \
         --patience 200 \
