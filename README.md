@@ -1,4 +1,4 @@
-# IR2_tapex_reproducbility_study
+# IR2_tapex_reproducibility_study
 
 Reproduction of TAPEX pre-training and fine-tuning for table-based reasoning.
 
