@@ -83,10 +83,12 @@ coverage.xml
 **/dataset/
 **/raw_dataset/
 
-
 # job outputs and jobs
 **/job_outputs/
 **/jobs/
 
 # tapex model code 
 **/tapex.base/
+
+# results
+**/results/
