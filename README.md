@@ -27,7 +27,7 @@ Denotation accuracies on SQA .
 | Model | Test |
 |-------|------|
 | TAPEX |  74.5 |
-| TAPEX (reproduced) | 0.613 |
+| TAPEX (reproduced) | 61.3 |
 
 Accuracies on Tabfact.
 
