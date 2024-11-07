@@ -7,7 +7,7 @@ TAPEX pre-trains a model for table-based reasoning by simulating a neural SQL ex
 
 ## Reproduction Results
 
-Denotation accuracies on WIKISQLWEAK.
+Denotation accuracies on WIKISQLWEAK:
 
 | Model | Dev | Test |
 |-------|-----|------|
@@ -15,21 +15,21 @@ Denotation accuracies on WIKISQLWEAK.
 | TAPEX (reproduced) | 89.9 | 89.6 |
 
 
-Denotation accuracies on WIKITABLEQUESTIONS.
+Denotation accuracies on WIKITABLEQUESTIONS:
 
 | Model | Dev | Test |
 |-------|-----|------|
 | TAPEX | 57.0 | 57.5 |
 | TAPEX (reproduced) | 49.3 | 48.7 |
 
-Denotation accuracies on SQA .
+Denotation accuracies on SQA:
 
 | Model | Test |
 |-------|------|
 | TAPEX |  74.5 |
 | TAPEX (reproduced) | 61.3 |
 
-Accuracies on Tabfact.
+Accuracies on Tabfact:
 
 | Model | Dev | Test |
 |-------|-----|------|
