@@ -22,12 +22,12 @@ Denotation accuracies on WIKITABLEQUESTIONS.
 | TAPEX | 57.0 | 57.5 |
 | TAPEX (reproduced) | 49.3 | 48.7 |
 
-Denotation accuracies on SQA.
+Denotation accuracies on SQA .
 
-| Model | Dev | Test |
-|-------|-----|------|
-| TAPEX | X | X |
-| TAPEX (reproduced) | 0.560 | 0.613 |
+| Model | Test |
+|-------|------|
+| TAPEX |  74.5 |
+| TAPEX (reproduced) | 0.613 |
 
 Accuracies on Tabfact.
 
