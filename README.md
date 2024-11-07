@@ -20,7 +20,7 @@ Denotation accuracies on WIKITABLEQUESTIONS:
 | Model | Dev | Test |
 |-------|-----|------|
 | TAPEX | 57.0 | 57.5 |
-| TAPEX (reproduced) | 49.3 | 48.7 |
+| TAPEX (reproduced) | 53.5 (±3.0) | 52.0 (±2.3) |
 
 Denotation accuracies on SQA:
 
