@@ -12,7 +12,7 @@ Denotation accuracies on WIKISQLWEAK:
 | Model | Dev | Test |
 |-------|-----|------|
 | TAPEX | 89.2 | 89.5 |
-| TAPEX (reproduced) | 89.9 | 89.6 |
+| TAPEX (reproduced) | 89.9 (±0.3)  | 89.7 (±0.1)  |
 
 
 Denotation accuracies on WIKITABLEQUESTIONS:
@@ -27,13 +27,13 @@ Denotation accuracies on SQA:
 | Model | Test |
 |-------|------|
 | TAPEX |  74.5 |
-| TAPEX (reproduced) | 61.3 |
+| TAPEX (reproduced) | 70.2 (±1.7) |
 
 Accuracies on Tabfact:
 
 | Model | Dev | Test |
 |-------|-----|------|
-| TAPEX | X | X |
+| TAPEX | 84.6 | 84.2 |
 | TAPEX (reproduced) | X | X |
 
 
