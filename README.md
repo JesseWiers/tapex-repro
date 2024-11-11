@@ -34,7 +34,7 @@ Accuracies on Tabfact:
 | Model | Dev | Test |
 |-------|-----|------|
 | TAPEX | 84.6 | 84.2 |
-| TAPEX (reproduced) | X | X |
+| TAPEX (reproduced) | 83.5 (±0.1) | 83.44 (±0.1) |
 
 
 
