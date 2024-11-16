@@ -31,10 +31,10 @@ Denotation accuracies on SQA:
 
 Accuracies on Tabfact:
 
-| Model | Dev | Test |
+| Model | Dev | Test | Test_simple | Test_complex | Test_small |
 |-------|-----|------|
-| TAPEX | 84.6 | 84.2 |
-| TAPEX (reproduced) | 83.5 (±0.1) | 83.44 (±0.1) |
+| TAPEX | 84.6 | 84.2 | 93.9 | 79.6 | 85.9 |  
+| TAPEX (reproduced) | 83.5 (±0.1) | 83.44 (±0.1) | 93.93 (±0.13) | 78.41 (±0.15) | 85.14 (±0.28) |
 
 
 
