@@ -12,9 +12,9 @@ module purge
 module load 2023
 module load Anaconda3/2023.07-2
 
-# conda create -n ir2_env python=3.8
+conda create -n ir2_env python=3.8
 echo "activate environment"
-source activate ir2_test_env
+source activate ir2_env
 
 pwd
 
