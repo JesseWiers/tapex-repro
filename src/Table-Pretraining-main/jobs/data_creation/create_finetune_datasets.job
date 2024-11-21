@@ -15,6 +15,6 @@ module load Anaconda3/2023.07-2
 source activate ir2_env
 
 python examples/tableqa/process_wikisql_data.py
-# python examples/tableqa/process_sqa_data.py
-# python examples/tableqa/process_wtq_data.py
-# python examples/tableft/process_tabfact_data.py
+python examples/tableqa/process_sqa_data.py
+python examples/tableqa/process_wtq_data.py
+python examples/tableft/process_tabfact_data.py
