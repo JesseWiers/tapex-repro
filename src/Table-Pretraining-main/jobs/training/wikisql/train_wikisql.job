@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --job-name=wiki1L
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=04:00:00
+#SBATCH --output=job_outputs/finetuning/wikisql/tapex.large_run1_%A.out
+
+module purge
+module load 2023
+module load Anaconda3/2023.07-2
+
+source activate ir2_env
+
+python examples/tableqa/run_model.py train \
+--dataset-dir /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/dataset/wikisql/tapex.large \
+--model-path /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/checkpoints/tapex.large/model.pt \
+--model-arch bart_large \
+--save-interval 5000 \
+--exp-dir checkpoints/wikisql/tapex.large_run1 \
+--seed 42 # 43, 44 

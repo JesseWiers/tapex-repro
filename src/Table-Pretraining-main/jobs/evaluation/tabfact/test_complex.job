@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --job-name=comple3
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=00:30:00
+#SBATCH --output=job_outputs/evaluation/tabfact/test_complex/tapex.large_run3_%A.out
+
+module purge
+module load 2023
+module load Anaconda3/2023.07-2
+
+source activate ir2_env
+
+python examples/tableft/run_model.py eval --dataset-dir /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/dataset/tabfact/tapex.large \
+--model-dir /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/checkpoints/tabfact/tapex.large_run3/best/ \
+--sub-dir test_complex \
+--seed 42 # 43, 44 

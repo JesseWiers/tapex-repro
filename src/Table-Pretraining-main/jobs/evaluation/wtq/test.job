@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --job-name=wtqTest
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=00:30:00
+#SBATCH --output=job_outputs/evaluation/wtq/test_set_run_1_tapex.large_%A.out
+
+module purge
+module load 2023
+module load Anaconda3/2023.07-2
+
+source activate ir2_env
+
+python examples/tableqa/run_model.py eval --dataset-dir /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/dataset/wtq/tapex.large \
+--model-path /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/checkpoints/wtq/wtq_tapex.large/checkpoint_best.pt \
+--sub-dir test \
+--predict-dir /home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/results/wtq_test_tapex.large \
+--seed 42 # 43, 44 
