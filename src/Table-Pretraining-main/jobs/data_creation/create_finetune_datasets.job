@@ -2,11 +2,11 @@
 
 #SBATCH --partition=gpu
 #SBATCH --gpus=1
-#SBATCH --job-name=arithmetic
+#SBATCH --job-name=datasets
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=18
 #SBATCH --time=01:00:00
-#SBATCH --output=job_outputs/data_creation/arithmetic_tapex.base_%A.out
+#SBATCH --output=job_outputs/data_creation/tapex.base_%A.out
 
 module purge
 module load 2023
