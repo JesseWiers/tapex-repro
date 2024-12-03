@@ -43,8 +43,9 @@ Accuracies on Tabfact:
 
 | Model | avg | sum | count | max | min |
 |-------|-----|------|------|------|------|
+| TAPEX (Base) | 0.10 | 0.22 | 0.45 | 0.22 | 0.30 |
 | TAPEX (Large) | 0.10 | 0.21 | 0.54 | 0.31 | 0.33 |  
-| TAPEX (Base) | 0.10 | 0.22 | 0.45 | 0.22 | 0.30 |  
+  
 
 
 
