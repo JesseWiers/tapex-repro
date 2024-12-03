@@ -37,6 +37,13 @@ Accuracies on Tabfact:
 | TAPEX (reproduced) | 83.5 (±0.1) | 83.44 (±0.1) | 93.93 (±0.13) | 78.41 (±0.15) | 85.14 (±0.28) |
 
 
+## Additional Analysis
+
+ Accuracies on different SQL operators:
+
+| Model | avg | sum | count | max | min |
+|-------|-----|------|------|------|------|
+| TAPEX (LARGE) | 0.10 | 0.21 | 0.54 | 0.31 | 0.33 |  
 
 
 
