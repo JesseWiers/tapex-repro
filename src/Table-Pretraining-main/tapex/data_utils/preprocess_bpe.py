@@ -108,6 +108,7 @@ def fairseq_bpe_translation(data_dir, resource_name, resource_dir=None, with_tes
     assert "train.tgt" in data_files, "You should prepare your dataset and guarantee a file named `train.tgt`."
     assert "valid.src" in data_files, "You should prepare your dataset and guarantee a file named `valid.src`."
     assert "valid.tgt" in data_files, "You should prepare your dataset and guarantee a file named `valid.tgt`."
+ 
     dataset_prefix = ["train", "valid"]
 
     if with_test_set:

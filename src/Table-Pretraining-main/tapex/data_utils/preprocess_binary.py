@@ -11,10 +11,13 @@ from fairseq_cli import preprocess
 
 
 def setup_translation_binary_arguments(args, data_dir, resource_name, with_test_set):
+    
     args.source_lang = args.source_lang if getattr(args, "source_lang") else "src"
     args.target_lang = args.target_lang if getattr(args, "target_lang") else "tgt"
+    
     args.trainpref = args.trainpref if getattr(args, "trainpref") else os.path.join(data_dir, "train.bpe")
     args.validpref = args.validpref if getattr(args, "validpref") else os.path.join(data_dir, "valid.bpe")
+
     args.destdir = args.destdir if getattr(args, "destdir") not in [None, "data-bin"]\
         else os.path.join(data_dir, resource_name, "bin")
     args.srcdict = args.srcdict if getattr(args, "srcdict") else os.path.join(resource_name, "dict.src.txt")

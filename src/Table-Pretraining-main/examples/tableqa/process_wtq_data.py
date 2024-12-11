@@ -109,19 +109,24 @@ if __name__ == '__main__':
 
     logger.info("*" * 80)
     logger.info("Prepare to download WikiTableQuestions from the official link...")
-    wtq_raw_data_dir = download_wikitablequestions()
+    # wtq_raw_data_dir = download_wikitablequestions()
+    wtq_raw_data_dir = '/home/scur1685/IR2_table_reasoning/src/Table-Pretraining-main/raw_dataset/wtq'
+    
     logger.info("Download finished! The original WikiTableQuestions dataset is saved in {}".format(wtq_raw_data_dir))
-    processed_wtq_data_dir = os.path.join(PROCESSED_DATASET_FOLDER, "wtq")
+    
+    # TODO: THIS CAN BE CHANGED BASED ON THE SPECIFIC OPERATOR DATASET
+    processed_wtq_data_dir = os.path.join(PROCESSED_DATASET_FOLDER, "wtq_max")
 
     logger.info("*" * 80)
     logger.info("Process the dataset and save the processed dataset in {}".format(processed_wtq_data_dir))
+    
+    
     build_wtq_fairseq_dataset("train", os.path.join(wtq_raw_data_dir, "data", "random-split-1-train.tsv"),
                               processed_wtq_data_dir)
-    build_wtq_fairseq_dataset("valid", os.path.join(wtq_raw_data_dir, "data", "random-split-1-dev.tsv"),
+    build_wtq_fairseq_dataset("valid", os.path.join(wtq_raw_data_dir, "data", "max_filtered_split-1-dev.tsv"),
                               processed_wtq_data_dir)
-    build_wtq_fairseq_dataset("test", os.path.join(wtq_raw_data_dir, "data", "pristine-unseen-tables.tsv"),
+    build_wtq_fairseq_dataset("test", os.path.join(wtq_raw_data_dir, "data", "max_filtered_split-1-dev.tsv"),
                               processed_wtq_data_dir)
-
     logger.info("*" * 80)
     logger.info("Begin to BPE and build the dataset binaries in {}/bin".format(processed_wtq_data_dir))
     preprocess_wtq_dataset(processed_wtq_data_dir)
