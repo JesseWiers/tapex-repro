@@ -37,8 +37,10 @@ def set_train_parser(parser_group):
                               help="the peak learning rate for model training")
     train_parser.add_argument("--save-interval", type=int, default=2000,
                               help="how often to save checkpoints (updates)")
+    train_parser.add_argument("--seed", type=int, default=42,
+                              help="random seed for initialization")  
+
     
- 
 def set_eval_parser(parser_group):
     eval_parser = parser_group.add_parser("eval")
     eval_parser.add_argument("--dataset-dir", type=str, required=True, default="",
@@ -52,6 +54,8 @@ def set_eval_parser(parser_group):
                              help="the max tokens can be larger than training when in inference.")
     eval_parser.add_argument("--predict-dir", type=str, default="predict",
                              help="the predict folder of generated result.")
+    eval_parser.add_argument("--seed", type=int, default=42,
+                             help="random seed for initialization")  # Added seed argument
 
 
 def set_predict_parser(parser_group):
@@ -61,6 +65,8 @@ def set_predict_parser(parser_group):
                                      "dict.src.txt, dict.tgt.txt and encoder.json.")
     predict_parser.add_argument("--checkpoint-name", type=str, default="model.pt",
                                 help="the model weight's name in the resource directory")
+    predict_parser.add_argument("--seed", type=int, default=42,
+                             help="random seed for initialization")  # Added seed argument
 
 
 def train_fairseq_model(args):
@@ -107,7 +113,8 @@ def train_fairseq_model(args):
         --validate-interval	50 \
         --save-interval	{args.save_interval} \
         --patience 200 \
-        --report-accuracy
+        --report-accuracy \
+        --seed {args.seed}
     """
     sys.argv = shlex.split(cmd)
     logger.info("Begin to train model for dataset {}".format(args.dataset_dir))
@@ -131,7 +138,8 @@ def evaluate_fairseq_model(args):
         --bpe gpt2 \
         --remove-bpe \
         --num-workers 20 \
-        --skip-invalid-size-inputs-valid-test
+        --skip-invalid-size-inputs-valid-test \
+        --seed {args.seed}
     """
     sys.argv = shlex.split(cmd)
     logger.info("Begin to evaluate model on the {} subset of dataset {}".format(args.sub_dir, args.dataset_dir))
