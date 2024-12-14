@@ -2,6 +2,7 @@
 # Licensed under the MIT license.
 
 from abc import ABC
+import pandas as pd
 import math
 import random
 from typing import List, Dict, Tuple
@@ -65,6 +66,15 @@ class CellLimitTruncate(TableTruncate):
         # do not process on these cases
         if isinstance(cell_value, int) or isinstance(cell_value, float):
             return cell_value
+        
+        # Check for timestamp values 
+        if isinstance(cell_value, pd.Timestamp):  
+            return cell_value
+        
+        # Check for None Values
+        if cell_value is None:  
+            return None  
+        
         if cell_value.strip() != "":
             try_tokens = self.tokenizer.tokenize(cell_value)
             if len(try_tokens) >= self.max_cell_length:
