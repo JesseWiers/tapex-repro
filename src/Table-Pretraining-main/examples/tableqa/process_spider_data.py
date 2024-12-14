@@ -48,29 +48,35 @@ def build_spider_fairseq_dataset(out_prefix, data_dir):
         df = pd.DataFrame(spider_tableQA["validation"])
     else: 
         df = pd.DataFrame(spider_tableQA[out_prefix])
-    
-    for _, sample in tqdm(df.iterrows(), total=df.shape[0]):
+        
+    for row, sample in tqdm(df.iterrows(), total=df.shape[0]):
         
         question = sample['question'].lower()
-        
         input_tables = [pd.read_json(table, orient='split') for table in sample['tables']]
         answer = pd.read_json(sample['answer'], orient='split')
         
-        input_source = f"{question} col : " + " | ".join(input_tables[0].columns) + " " + " ".join(
-        [f"row {i + 1} : " + " | ".join(map(str, row)) for i, row in input_tables[0].iterrows()]
-        )
-        
-        if answer.shape[0] > 0:  
+        if input_tables:  
+            table_df = input_tables[0]  
+            table_content = " ".join(
+                [f"row {i + 1} : " + " | ".join(map(str, row)).replace('\n', ' ') for i, row in table_df.iterrows()]
+            )
+            input_source = f"{question} col : " + " | ".join(table_df.columns) + " " + table_content
+        else:
+            continue  
+
+        if answer.shape[0] > 0: 
             output_target = " | ".join(
                 [" | ".join(map(str, row)) for row in answer.values]
-            )
+            ).replace('\n', ' ')
         else:
             output_target = ""  
-            
-        output_target = output_target.replace(" |", ",")
+            continue 
         
-        input_f.write(input_source + "\n")
-        output_f.write(output_target + "\n")
+        output_target = output_target.replace(" |", ",")
+
+        if input_source and output_target:  
+            input_f.write(input_source + "\n")
+            output_f.write(output_target + "\n")
                
     input_f.close()
     output_f.close()
