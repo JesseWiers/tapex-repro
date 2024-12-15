@@ -22,6 +22,12 @@ Denotation accuracies on WIKITABLEQUESTIONS:
 | TAPEX | 57.0 | 57.5 |
 | TAPEX (reproduced) | 53.5 | 52.0 |
 
+Denotation accuracies on WIKITABLEQUESTIONS with different learning rates :
+
+| Model | Learning rate 3e-4 | Learning rate 3e-5  | Learning rate 3e-6 | 
+|-------|-----|------|------|
+| TAPEX | 4.4 | 51.9 |  42.2|
+
 Denotation accuracies on SQA:
 
 | Model | Test |
@@ -39,12 +45,27 @@ Accuracies on Tabfact:
 
 ## Additional Analysis
 
- Accuracies on different SQL operators:
+ Accuracies on different WTQ SQL operators:
 
 | Model | avg | sum | count | max | min |
 |-------|-----|------|------|------|------|
 | TAPEX (Base) | 0.10 | 0.22 | 0.45 | 0.22 | 0.30 |
 | TAPEX (Large) | 0.10 | 0.21 | 0.54 | 0.31 | 0.33 |  
+
+
+Accuracies on spider-tableQA:
+
+| Model | Dev |
+|-------|------|
+| TAPEX (Base) |0.172 |
+| TAPEX (Large) | |  
+
+ Accuracies on different spider-tableQA SQL operators:
+
+| Model | avg | sum | count | max | min |
+|-------|-----|------|------|------|------|
+| TAPEX (Base) | 0.00 | 0.065 | 0.202 | 0.10 |  |
+| TAPEX (Large) |  |  |  |  |  |  
   
 
 
