@@ -1,9 +1,27 @@
-# IR2_tapex_reproducibility_study
+# Introduction
 
-Reproduction of TAPEX pre-training and fine-tuning for table-based reasoning.
+The code for reproducing our paper "A Reproducibility Study of TAPEX". TAPEX pre-trains a model for table-based reasoning by simulating a neural SQL executor. Instead of relying on traditional NLP methods, TAPEX trains on SQL-like tasks over tables to improve structured data understanding, enabling it to handle question-answering and fact verification directly on tabular data. Evaluated on datasets like WikiSQL and TabFact, TAPEX demonstrates strong performance on table-centric tasks without needing SQL execution, using sequence generation to produce answers from table context alone.
+We reproduce the original TAPEX PAPER and find that performance on WTQ and SQA can not be replicated. Moreover, we find that the performance on arithmetic operator is overstated and that TAPEX can be beaten with a stronger baseline.
 
-TAPEX pre-trains a model for table-based reasoning by simulating a neural SQL executor. Instead of relying on traditional NLP methods, TAPEX trains on SQL-like tasks over tables to improve structured data understanding, enabling it to handle question-answering and fact verification directly on tabular data. Evaluated on datasets like WikiSQL and TabFact, TAPEX demonstrates strong performance on table-centric tasks without needing SQL execution, using sequence generation to produce answers from table context alone.
 
+## Quick Start
+
+### Installation instructions
+
+Get the code:
+```bash
+git clone https://github.com/JesseWiers/tapex-repro.git
+```
+
+We use conda for package management, create an environment with:
+```bash
+conda env create -f env.yml
+```
+
+Activate this environment to run the code without dependency problems:
+```bash
+conda activate tapex_repro
+```
 
 ## Reproduction Results
 
@@ -24,9 +42,9 @@ Denotation accuracies on WIKITABLEQUESTIONS:
 
 Denotation accuracies on WIKITABLEQUESTIONS with different learning rates :
 
-| Model | Learning rate 3e-4 | Learning rate 3e-5  | Learning rate 3e-6 | 
-|-------|-----|------|------|
-| TAPEX | 4.4 | 51.9 |  42.2|
+| Model | Learning rate 1e-5 | Learning rate 3e-5  | Learning rate 5e-5 | Learning rate 7e-5 |
+|-------|-----|------|------|------|
+| TAPEX | 0.488 | 0.519 | 0.502 | 0.531 |
 
 Denotation accuracies on SQA:
 
@@ -64,9 +82,6 @@ Accuracies on spider-tableQA:
 
 | Model | avg | sum | count | max | min |
 |-------|-----|------|------|------|------|
-| TAPEX (Base) | 0.00 | 0.065 | 0.202 | 0.10 |  |
+| TAPEX (Base) | 0.00 | 0.065 | 0.202 | 0.10 | 0.037 |
 | TAPEX (Large) |  0.048 | 0.032 | 0.288 | 0.325 | 0.259 |  
   
-
-
-
