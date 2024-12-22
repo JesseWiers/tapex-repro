@@ -107,34 +107,31 @@ def preprocess_wtq_dataset(processed_data_dir):
 if __name__ == '__main__':
     logger.info("You are using the setting of {}".format(MODEL_NAME))
 
-    logger.info("*" * 80)
-    logger.info("Prepare to download WikiTableQuestions from the official link...")
-    wtq_raw_data_dir = download_wikitablequestions()
     wtq_raw_data_dir = 'raw_dataset/wtq'
     
-    logger.info("Download finished! The original WikiTableQuestions dataset is saved in {}".format(wtq_raw_data_dir))
+    operators = ['sum', 'avg', 'min', 'max', 'count']
     
-    # TODO: THIS CAN BE CHANGED BASED ON THE SPECIFIC OPERATOR DATASET
-    processed_wtq_data_dir = os.path.join(PROCESSED_DATASET_FOLDER, "wtq_max")
+    for operator in operators: 
+        processed_wtq_data_dir = os.path.join(PROCESSED_DATASET_FOLDER, f"wtq_{operator}")
 
-    logger.info("*" * 80)
-    logger.info("Process the dataset and save the processed dataset in {}".format(processed_wtq_data_dir))
-    
-    build_wtq_fairseq_dataset("train", os.path.join(wtq_raw_data_dir, "data", "random-split-1-train.tsv"),
-                              processed_wtq_data_dir)
-    build_wtq_fairseq_dataset("valid", os.path.join(wtq_raw_data_dir, "data", "random-split-1-dev.tsv"),
-                              processed_wtq_data_dir)
-    build_wtq_fairseq_dataset("test", os.path.join(wtq_raw_data_dir, "data", "pristine-unseen-tables.tsv"),
-                              processed_wtq_data_dir)
-    
-    logger.info("*" * 80)
-    logger.info("Begin to BPE and build the dataset binaries in {}/bin".format(processed_wtq_data_dir))
-    preprocess_wtq_dataset(processed_wtq_data_dir)
+        logger.info("*" * 80)
+        logger.info("Process the dataset and save the processed dataset in {}".format(processed_wtq_data_dir))
+        
+        
+        build_wtq_fairseq_dataset("train", os.path.join(wtq_raw_data_dir, "data", "random-split-1-train.tsv"),
+                                processed_wtq_data_dir)
+        build_wtq_fairseq_dataset("valid", os.path.join(wtq_raw_data_dir, "data", f"{operator}_filtered_split-1-dev.tsv"),
+                                processed_wtq_data_dir)
+        build_wtq_fairseq_dataset("test", os.path.join(wtq_raw_data_dir, "data", f"{operator}_filtered_split-1-dev.tsv"),
+                                processed_wtq_data_dir)
+        logger.info("*" * 80)
+        logger.info("Begin to BPE and build the dataset binaries in {}/bin".format(processed_wtq_data_dir))
+        preprocess_wtq_dataset(processed_wtq_data_dir)
 
-    logger.info("*" * 80)
-    logger.info("Begin to build the HuggingFace dataset version in {}".format(processed_wtq_data_dir))
-    build_wtq_huggingface_dataset(processed_wtq_data_dir)
+        logger.info("*" * 80)
+        logger.info("Begin to build the HuggingFace dataset version in {}".format(processed_wtq_data_dir))
+        build_wtq_huggingface_dataset(processed_wtq_data_dir)
 
-    logger.info("*" * 80)
-    logger.info("Now you can train models using {} as the <data_dir> argument. "
-                "More details in `run_model.py`.".format(os.path.join(processed_wtq_data_dir, MODEL_NAME)))
+        logger.info("*" * 80)
+        logger.info("Now you can train models using {} as the <data_dir> argument. "
+                    "More details in `run_model.py`.".format(os.path.join(processed_wtq_data_dir, MODEL_NAME)))
