@@ -33,7 +33,7 @@ The code and instructions to run all the main experiments can be found under [Ta
 To create the datasets for evaluating on different operators for WTQ run: 
 
 ```bash
-python Table_Pretraining-main/examples/tableqa/process_wtq_data.py
+python Table_Pretraining-main/examples/tableqa/process_wtq_operators_data.py
 ```
 
 Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)
