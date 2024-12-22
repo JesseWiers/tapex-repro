@@ -8,20 +8,45 @@ We reproduce the original TAPEX PAPER and find that performance on WTQ and SQA c
 
 ### Installation instructions
 
-Get the code:
+We use conda for package management, to create the environment run:
 ```bash
-git clone https://github.com/JesseWiers/tapex-repro.git
-```
-
-We use conda for package management, create an environment with:
-```bash
-conda env create -f env.yml
+bash create_env.sh
 ```
 
 Activate this environment to run the code without dependency problems:
 ```bash
 conda activate tapex_repro
 ```
+
+### Getting the pretrained checkpoints
+It is possible to obtain the checkpoints of all models. [checkpoints/download_checkpoints.sh](checkpoints/download_checkpoints.sh) contains commands to download the various models. By default all commands are commented, uncomment the ones you are interested and run:
+
+```bash
+bash checkpoints/download_checkpoints.sh
+```
+
+### Running the code
+The code and instructions to run all the main experiments can be found under [Table-Pretraining-main](Table-Pretraining-main). 
+
+#### Evaluating on arithmetic operators 
+
+To create the datasets for evaluating on different operators for WTQ run: 
+
+```bash
+python Table_Pretraining-main/examples/tableqa/process_wtq_data.py
+```
+
+Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)
+
+
+#### Training Llama 
+
+#### Training with data augmentations 
+
+#### Training and evaluating on Spider
+
+
+
 
 ## Reproduction Results
 
