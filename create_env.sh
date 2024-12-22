@@ -6,3 +6,9 @@ pip install hydra-core==1.0.7
 pip install omegaconf==2.0.5
 pip install tapex
 pip install --editable ./
+pip install seaborn
+pip install pandas
+pip install random
+pip install json
+pip install matplotlib
+pip install numpy
