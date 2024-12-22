@@ -1,6 +1,7 @@
 # Introduction
 
 The code for reproducing our paper "A Reproducibility Study of TAPEX". TAPEX pre-trains a model for table-based reasoning by simulating a neural SQL executor. Instead of relying on traditional NLP methods, TAPEX trains on SQL-like tasks over tables to improve structured data understanding, enabling it to handle question-answering and fact verification directly on tabular data. Evaluated on datasets like WikiSQL and TabFact, TAPEX demonstrates strong performance on table-centric tasks without needing SQL execution, using sequence generation to produce answers from table context alone.
+
 We reproduce the original TAPEX PAPER and find that performance on WTQ and SQA can not be replicated. Moreover, we find that the performance on arithmetic operator is overstated and that TAPEX can be beaten with a stronger baseline.
 
 
@@ -18,34 +19,29 @@ Activate this environment to run the code without dependency problems:
 conda activate tapex_repro
 ```
 
-### Getting the pretrained checkpoints
-It is possible to obtain the checkpoints of all models. [checkpoints/download_checkpoints.sh](checkpoints/download_checkpoints.sh) contains commands to download the various models. By default all commands are commented, uncomment the ones you are interested and run:
-
-```bash
-bash checkpoints/download_checkpoints.sh
-```
-
 ### Running the code
 In order to run the experiments of this reproducibility study, first download and preprocess the orginal datasets (WTQ, WIKISQL, SQA and Tabfact). Instructions to
-do so can be found under [Table-Pretraining-main](Table-Pretraining-main). Instructions to pre-train, finetune and evaluate models can also be found under this directory. For the the three training runs for each dataset seeds=1,2,3 were used. 
+do so can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/). Instructions to pre-train, finetune and evaluate models can also be found under this directory. For the the three training runs for each dataset seeds=1,2,3 were used. 
 
 #### Evaluating on arithmetic operators for WTQ 
 
 To create the datasets for evaluating on different operators for WTQ run: 
 
 ```bash
-python Table_Pretraining-main/examples/tableqa/create_wtq_operators_data.py
-python Table_Pretraining-main/examples/tableqa/process_wtq_operators_data.py
+cd Table-Pretraining-main
+python examples/tableqa/create_wtq_operators_data.py
+python examples/tableqa/process_wtq_operators_data.py
 ```
 
-Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)
+Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and particularly under [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)
 
 #### Evaluating on Spider 
 
-To create the datasets for evaluating on different operators and the validation set for Spider run: 
+To create the datasets for evaluating on different operators and the validation set of Spider run: 
 
 ```bash
-python Table_Pretraining-main/examples/tableqa/process_spider_data.py
+cd Table-Pretraining-main
+python examples/tableqa/process_spider_data.py
 ```
 
 Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)

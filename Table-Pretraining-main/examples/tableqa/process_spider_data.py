@@ -48,10 +48,10 @@ def build_spider_fairseq_dataset(out_prefix, data_dir, operator=""):
         df = pd.DataFrame(spider_tableQA["validation"])
         
         if operator != "":
-            print(f"operator: {operator}")
+            # print(f"operator: {operator}")
             df = df[df['query'].str.contains(r'\b' + operator + r'\b', case=False, na=False)]
-            print(f"DataFrame for operator '{operator}': {len(df)} rows")
-            print(df['query'])
+            # print(f"DataFrame for operator '{operator}': {len(df)} rows")
+            # print(df['query'])
     else: 
         df = pd.DataFrame(spider_tableQA[out_prefix])
         
@@ -103,7 +103,7 @@ def preprocess_spider_dataset(processed_data_dir):
 if __name__ == '__main__':
     logger.info("You are using the setting of {}".format(MODEL_NAME))
     
-    operators = ['max', 'min', 'avg', 'sum', 'count']
+    operators = ['', 'max', 'min', 'avg', 'sum', 'count']
     
     for operator in operators:
 

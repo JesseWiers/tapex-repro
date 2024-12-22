@@ -2,13 +2,16 @@ import pandas as pd
 import json
 import matplotlib.pyplot as plt
 import subprocess
+import os
 
 
 def main():
     
-    subprocess.run(['wget', '--header=Referer: https://huggingface.co/', '-P', '../../raw_dataset/', 'https://huggingface.co/JesseWiers/tapex_repro/resolve/main/squall.json'])
+    subprocess.run(['wget', '--header=Referer: https://huggingface.co/', '-P', 'raw_dataset/squall/', 'https://huggingface.co/JesseWiers/tapex_repro/resolve/main/squall.json'])
     
-    with open('../../raw_dataset/squall.json', 'r') as f:
+    os.makedirs('raw_dataset/squall/', exist_ok=True)
+
+    with open('raw_dataset/squall/squall.json', 'r') as f:
         data = json.load(f)
 
     # Convert JSON to DataFrame
@@ -42,15 +45,15 @@ def main():
         print(f"DataFrame for operator '{operator}': {len(operator_df)} rows")
         
     # Load validation, test, and train DataFrames
-    validation_file_path = '../../raw_dataset/wtq/data/random-split-1-dev.tsv'  
+    validation_file_path = 'raw_dataset/wtq/data/random-split-1-dev.tsv'  
     val_df = pd.read_csv(validation_file_path, sep='\t', on_bad_lines='skip')
     print(f"Validation DataFrame rows: {val_df.shape[0]}")
 
-    test_file_path = '../../raw_dataset/wtq/data/pristine-unseen-tables.tsv' 
+    test_file_path = 'raw_dataset/wtq/data/pristine-unseen-tables.tsv' 
     test_df = pd.read_csv(test_file_path, sep='\t')
     print(f"Test DataFrame rows: {test_df.shape[0]}")
 
-    train_file_path = '../../raw_dataset/wtq/data/random-split-1-train.tsv'  
+    train_file_path = 'raw_dataset/wtq/data/random-split-1-train.tsv'  
     train_df = pd.read_csv(train_file_path, sep='\t')
     print(f"Train DataFrame rows: {train_df.shape[0]}")
     
@@ -81,7 +84,7 @@ def main():
 
     for operator in sql_operators: 
         filtered_df = operator_dfs_filtered[operator].drop(columns=columns_to_drop, errors='ignore')
-        filtered_df.to_csv(f'filtered_datasets/{operator}_filtered_split-1-dev.tsv', sep='\t', index=False)
+        filtered_df.to_csv(f'raw_dataset/wtq/data/{operator}_filtered_split-1-dev.tsv', sep='\t', index=False)
         
     # Function to filter examples
     def filter_examples_by_ids(example_file, id_list, output_file):
@@ -98,12 +101,12 @@ def main():
         
         print(f"Filtered examples saved to {output_file}")
 
-    original_examples_file = 'random-split-1-dev.examples'
+    original_examples_file = 'raw_dataset/wtq/data/random-split-1-dev.examples'
 
     for operator, operator_df in operator_dfs_filtered.items():
         id_list = operator_df['nt'].tolist()  
         #output_file = f"filtered_datasets/{operator}_filtered_split-1-dev.examples" 
-        output_file = f'../../raw_dataset/wtq/data/{operator}_filtered_split-1-dev.examples'
+        output_file = f'raw_dataset/wtq/data/{operator}_filtered_split-1-dev.examples'
         
         filter_examples_by_ids(original_examples_file, id_list, output_file)
 
