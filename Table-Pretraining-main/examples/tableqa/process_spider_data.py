@@ -24,7 +24,7 @@ MODEL_NAME = "tapex.base"
 logger = logging.getLogger(__name__)
 
 
-def build_spider_fairseq_dataset(out_prefix, data_dir):
+def build_spider_fairseq_dataset(out_prefix, data_dir, operator=""):
     """
     Builds a Fairseq dataset for Spider
 
@@ -46,9 +46,16 @@ def build_spider_fairseq_dataset(out_prefix, data_dir):
     spider_tableQA = load_dataset("vaishali/spider-tableQA")
     if out_prefix == "valid":
         df = pd.DataFrame(spider_tableQA["validation"])
+        
+        if operator != "":
+            print(f"operator: {operator}")
+            df = df[df['query'].str.contains(r'\b' + operator + r'\b', case=False, na=False)]
+            print(f"DataFrame for operator '{operator}': {len(df)} rows")
+            print(df['query'])
     else: 
         df = pd.DataFrame(spider_tableQA[out_prefix])
         
+
     for row, sample in tqdm(df.iterrows(), total=df.shape[0]):
         
         question = sample['question'].lower()
@@ -72,7 +79,8 @@ def build_spider_fairseq_dataset(out_prefix, data_dir):
             output_target = ""  
             continue 
         
-        output_target = output_target.replace(" |", ",")
+        input_source = input_source.lower()
+        output_target = output_target.replace(" |", ",").lower()
 
         if input_source and output_target:  
             input_f.write(input_source + "\n")
@@ -94,25 +102,30 @@ def preprocess_spider_dataset(processed_data_dir):
 
 if __name__ == '__main__':
     logger.info("You are using the setting of {}".format(MODEL_NAME))
-
-    processed_spider_data_dir = os.path.join(PROCESSED_DATASET_FOLDER, "spider")
-
-    logger.info("*" * 80)
-    logger.info("Process the dataset and save the processed dataset in {}".format(processed_spider_data_dir))
     
-    logger.info("Building the train dataset in {}".format(processed_spider_data_dir))
-    build_spider_fairseq_dataset("train", processed_spider_data_dir)
-    logger.info("Building the validation dataset in {}".format(processed_spider_data_dir))
-    build_spider_fairseq_dataset("valid", processed_spider_data_dir)
-     
-    logger.info("*" * 80)
-    logger.info("Begin to BPE and build the dataset binaries in {}/bin".format(processed_spider_data_dir))
-    preprocess_spider_dataset(processed_spider_data_dir)
+    operators = ['max', 'min', 'avg', 'sum', 'count']
+    
+    for operator in operators:
 
-    logger.info("*" * 80)
-    logger.info("Begin to build the HuggingFace dataset version in {}".format(processed_spider_data_dir))
-    build_spider_huggingface_dataset(processed_spider_data_dir)
+        processed_spider_data_dir = os.path.join(PROCESSED_DATASET_FOLDER, f"spider_{operator}")
 
-    logger.info("*" * 80)
-    logger.info("Now you can train models using {} as the <data_dir> argument. "
-                "More details in `run_model.py`.".format(os.path.join(processed_spider_data_dir, MODEL_NAME)))
+        logger.info("*" * 80)
+        logger.info("Process the dataset and save the processed dataset in {}".format(processed_spider_data_dir))
+        
+        logger.info("Building the validation dataset in {}".format(processed_spider_data_dir))
+        build_spider_fairseq_dataset("valid", processed_spider_data_dir, operator=operator)
+        
+        logger.info("Building the train dataset in {}".format(processed_spider_data_dir))
+        build_spider_fairseq_dataset("train", processed_spider_data_dir)
+        
+        logger.info("*" * 80)
+        logger.info("Begin to BPE and build the dataset binaries in {}/bin".format(processed_spider_data_dir))
+        preprocess_spider_dataset(processed_spider_data_dir)
+
+        logger.info("*" * 80)
+        logger.info("Begin to build the HuggingFace dataset version in {}".format(processed_spider_data_dir))
+        build_spider_huggingface_dataset(processed_spider_data_dir)
+
+        logger.info("*" * 80)
+        logger.info("Now you can train models using {} as the <data_dir> argument. "
+                    "More details in `run_model.py`.".format(os.path.join(processed_spider_data_dir, MODEL_NAME)))
