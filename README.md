@@ -50,14 +50,13 @@ Evaluating on these datasets is done in the same way as all the other datasets, 
 
 #### Training Llama 
 
+To train and evaluate Llama follow the instructions under [Table-Pretraining-main/llama/instructions.md](Table-Pretraining-main/llama/instructions.md)
+
 #### Training with data augmentations 
 
-Creating the datasets for the robustness experiments is done here: [Table-Pretraining-main/notebooks/no_answer_questions.ipynb](Table-Pretraining-main/notebooks/no_answer_questions.ipynb)
+Creating the datasets for the robustness experiments is done in: [Table-Pretraining-main/notebooks/no_answer_questions.ipynb](Table-Pretraining-main/notebooks/no_answer_questions.ipynb)
 
-Reproducing the precision and recall metrics from the extension experiment is done here: [Table-Pretraining-main/notebooks/result_analysis.ipynb](Table-Pretraining-main/notebooks/result_analysis.ipynb)
-
-
-
+Reproducing the precision and recall metrics from the extension experiment is done in: [Table-Pretraining-main/notebooks/result_analysis.ipynb](Table-Pretraining-main/notebooks/result_analysis.ipynb)
 
 
 ## Reproduction Results
