@@ -26,17 +26,30 @@ bash checkpoints/download_checkpoints.sh
 ```
 
 ### Running the code
-The code and instructions to run all the main experiments can be found under [Table-Pretraining-main](Table-Pretraining-main). 
+In order to run the experiments of this reproducibility study, first download and preprocess the orginal datasets (WTQ, WIKISQL, SQA and Tabfact). Instructions to
+do so can be found under [Table-Pretraining-main](Table-Pretraining-main). Instructions to pre-train, finetune and evaluate models can also be found under this directory. For the the three training runs for each dataset seeds=1,2,3 were used. 
 
-#### Evaluating on arithmetic operators 
+#### Evaluating on arithmetic operators for WTQ 
 
 To create the datasets for evaluating on different operators for WTQ run: 
 
 ```bash
+python Table_Pretraining-main/examples/tableqa/create_wtq_operators_data.py
 python Table_Pretraining-main/examples/tableqa/process_wtq_operators_data.py
 ```
 
 Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)
+
+#### Evaluating on Spider 
+
+To create the datasets for evaluating on different operators and the validation set for Spider run: 
+
+```bash
+python Table_Pretraining-main/examples/tableqa/process_spider_data.py
+```
+
+Evaluating on these datasets is done in the same way as all the other datasets, detailed instructions can be found under [Table-Pretraining-main](Table-Pretraining-main) and [Table-Pretraining-main/examples/](Table-Pretraining-main/examples/)
+
 
 
 #### Training Llama 
@@ -45,9 +58,8 @@ Evaluating on these datasets is done in the same way as all the other datasets, 
 
 Creating the datasets for the robustness experiments is done here: [Table-Pretraining-main/notebooks/no_answer_questions.ipynb](Table-Pretraining-main/notebooks/no_answer_questions.ipynb)
 
-Reproducing the precisiona and recall metrics from the extension experiment is done here: [Table-Pretraining-main/notebooks/result_analysis.ipynb](Table-Pretraining-main/notebooks/result_analysis.ipynb)
+Reproducing the precision and recall metrics from the extension experiment is done here: [Table-Pretraining-main/notebooks/result_analysis.ipynb](Table-Pretraining-main/notebooks/result_analysis.ipynb)
 
-#### Training and evaluating on Spider
 
 
 
