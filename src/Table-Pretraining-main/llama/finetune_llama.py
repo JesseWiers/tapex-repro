@@ -4,14 +4,22 @@ import os
 from datasets import load_dataset
 from trl import DataCollatorForCompletionOnlyLM, SFTConfig, SFTTrainer
 from format_utils import transform_table_to_markdown
+import argparse
+
+# Set up argument parsing
+parser = argparse.ArgumentParser(description="Fine-tune the Llama model on a dataset.")
+parser.add_argument('--dataset', type=str, default='wikisql', help='Name of the dataset to use (default: wikisql)')
+parser.add_argument('--epochs', type=int, default=3, help='Number of epochs')
+
+args = parser.parse_args()
 
 # Configuration
 MAX_SEQ_LENGTH = 102400
 DTYPE = None          # None for auto detection. 
 LOAD_IN_4BIT = True   # Use 4-bit quantization to reduce memory usage.
-EPOCHS = 9
+EPOCHS = args.epochs
 TABLE_FORMAT = "markdown"
-DATASET = "spider"
+DATASET = args.dataset
 PROCESSED_DATA_DIR = f"dataset/{DATASET}/"
 MODEL_PATH = "/home/scur2836/Tapex/IR2_table_reasoning/src/Table-Pretraining-main/models/Llama3.1_8B_Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659"
 RESPONSE_TEMPLATE = "### Answer (be brief and exact):"
@@ -211,10 +219,7 @@ def save_model_and_tokenizer(model, tokenizer):
     """
     Save the fine-tuned model and tokenizer to disk.
     """
-    if DATASET == "spider":
-        save_path = f"models/Llama_{DATASET}_epoch_{EPOCHS}_{TABLE_FORMAT}_{MAX_CHARACHTER_LENGTH}"
-    else:
-        save_path = f"models/Llama_{DATASET}_epoch_{EPOCHS}_{TABLE_FORMAT}"
+    save_path = f"models/Llama_{DATASET}_epoch_{EPOCHS}_{TABLE_FORMAT}"
     model.save_pretrained(save_path)
     tokenizer.save_pretrained(save_path)
     print(f"Model and tokenizer saved to: {save_path}")

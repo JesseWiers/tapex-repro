@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description="Evaluate the Llama model on a data
 parser.add_argument('--dataset', type=str, default='wikisql', help='Name of the dataset to use (default: wikisql)')
 parser.add_argument('--type_data', type=str, default='test', help='Type of data to evaluate (default: valid or test)')
 parser.add_argument('--use_original_model', action='store_true', help='Use the original model instead of the fine-tuned model.')
+parser.add_argument('--epochs', type=int, default=3, help='Number of epochs')
 
 args = parser.parse_args()
 
@@ -22,11 +23,11 @@ DTYPE = None
 LOAD_IN_4BIT = True
 BATCH_SIZE = 1
 TABLE_FORMAT = "markdown"
+EPOCHS_USED = args.epochs
 DATASET = args.dataset
-MODEL_DIR = f"models/Llama_{args.dataset}_epoch_3_markdown"
+MODEL_DIR = f"models/Llama_{args.dataset}_epoch_{EPOCHS_USED}_markdown"
 PROCESSED_DATA_DIR = f"dataset/{args.dataset}/"
-OUTPUT_FILE = f"llama/{args.type_data}_predictions_{args.dataset}_epoch_9_markdown_250000.txt"
-# OUTPUT_FILE = f"llama/{args.type_data}_predictions_{args.dataset}_epoch_3_markdown.txt"
+OUTPUT_FILE = f"llama/{args.type_data}_predictions_{args.dataset}_epoch_{EPOCHS_USED}_markdown.txt"
 TYPE_DATA = args.type_data  # Use the provided type_data
 
 
